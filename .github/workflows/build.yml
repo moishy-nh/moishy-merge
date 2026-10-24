@@ -8,18 +8,20 @@ jobs:
     runs-on: windows-latest
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '18'
 
-      - name: Install Nativefier
-        run: npm install -g nativefier
+      - name: Create App with Nativefier
+        shell: cmd
+        run: |
+          npx --yes nativefier "https://moishy-merge.vercel.app" --name "MoishyMerge" --out dist --portable
 
-      - name: Create app
-        run: npx nativefier https://moishy-merge.vercel.app --name "MoishyMerge" --out dist --portable
-
-      - name: Upload artifact
+      - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
           name: MoishyMerge-EXE
