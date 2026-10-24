@@ -17,16 +17,11 @@ jobs:
         run: npm install -g nativefier
 
       - name: Create app
-        shell: pwsh
-        run: |
-          nativefier "https://moishy-merge.vercel.app" `
-            --name "MoishyMerge" `
-            --out dist `
-            --portable
+        run: npx nativefier https://moishy-merge.vercel.app --name "MoishyMerge" --out dist --portable
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: MoishyMerge-EXE
-          path: dist/**
+          path: dist/
           if-no-files-found: error
